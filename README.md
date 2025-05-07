@@ -59,6 +59,18 @@ Fraud detection in credit card transactions is challenged by extreme class imbal
 * **Real‑Time Scalability**: Flags anomalies on incoming streams immediately
 * **Robust to Imbalance**: Designed for skewed classes, avoiding majority bias
 
+## Key Findings:
+
+* **Emerging Pattern Detection**: Unsupervised models identified clusters of anomalies not captured by supervised models, revealing potential new fraud tactics.
+
+* **Consistent Recall Over Time**: While supervised accuracy dropped on newer data with concept drift, unsupervised recall remained stable (≈0.60).
+
+* **Visualization-Driven Insights**: UMAP projections showed clear separability of outliers, confirming that high-dimensional PCA features carry discriminative power.
+
+* **Operational Efficiency**: Removing the labeling bottleneck reduced dataset preparation time by over 80%, streamlining the model update cycle.
+
+* **Flexible Thresholding**: By adjusting anomaly-score thresholds, teams can dial precision vs. recall to meet evolving risk tolerances.
+
 ## Data Visualization
 
 Visual aids were created in Jupyter notebooks to explore feature behavior:
