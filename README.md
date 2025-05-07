@@ -1,105 +1,104 @@
 # Credit Card Fraud Detection Using Unsupervised Learning
 
 ## Abstract
-Fraudulent transaction detection is a major challenge in real-time systems due to the scarcity and imbalance of labeled data. This project applies unsupervised learning techniques—Isolation Forest and Local Outlier Factor (LOF)—to detect anomalies in credit card transaction data. The methodology includes dimensionality reduction, exploratory data analysis, and performance benchmarking based on precision, recall, and F1-score.
 
+Fraud detection in credit card transactions is challenged by extreme class imbalance and evolving fraud tactics. This project applies unsupervised learning techniques to flag anomalies without relying on labeled fraud examples, and benchmarks performance against supervised models to highlight trade‑offs.
 
 ## Dataset
 
-- **Source**: [Kaggle - Credit Card Fraud Detection Dataset](https://www.kaggle.com/mlg-ulb/creditcardfraud)
-- **Total Records**: 284,807 transactions
-- **Attributes**: 30 features including anonymized PCA components (V1 to V28), `Time`, `Amount`, and `Class` (0: Legitimate, 1: Fraudulent)
+* **Source**: [Kaggle Credit Card Fraud Detection](https://www.kaggle.com/mlg-ulb/creditcardfraud)
+* **Records**: 284,807 transactions over two days
+* **Fraud Cases**: 492 (0.172%)
+* **Features**: 30 (V1–V28 PCA components, `Time`, `Amount`, `Class`)
 
 ## Methodology
 
-### Preprocessing
-- Normalization using `StandardScaler` and `MinMaxScaler`
-- Feature selection based on variance and correlation
-- Dimensionality reduction using **UMAP** for better separability of anomalies in 2D space
+1. **Preprocessing**
 
-### Exploratory Data Analysis
-- Analyzed time-of-day patterns and distribution of principal components
-- Key observations:
-  - Fraudulent transactions occur more frequently during early hours (0–6)
-  - Distinct distributions observed in features V1 to V9 between fraud and normal classes
+   * Scaled features with `StandardScaler` & `MinMaxScaler`
+   * Selected high‑variance and low‑correlation features
+2. **Dimensionality Reduction**
 
-## Data Visualization
+   * Used UMAP to project data into 2D for visualization of anomaly clusters
+3. **Exploratory Data Analysis**
 
-Visual analytics were performed to understand feature distributions and identify patterns that differentiate fraud from legitimate transactions:
-
-- **KDE (Kernel Density Estimate) Plots**:
-  - Compared distributions for high-variance features such as `V1`, `V4`, and `V6`
-  - Fraudulent transactions showed distinct non-Gaussian spread, especially in early morning hours (`Time`)
-
-- **Heatmap of Correlations**:
-  - Highlighted strong negative/positive correlation between certain PCA components and class labels
-
-- **UMAP Projections**:
-  - 2D visualization using UMAP demonstrated strong separability of outliers, validating its utility for anomaly detection
-
-- **Histograms and Boxplots**:
-  - Used to observe skewness and interquartile ranges of `Amount`, `Time`, and selected V-features
-
-- **Class Distribution Plot**:
-  - Displayed the extreme class imbalance (~0.17% fraud)
+   * Time‑of‑day patterns: fraud spikes between 0–6 hrs
+   * PCA component distributions differ for fraud vs. normal transactions
 
 ## Models Implemented
 
-- **Isolation Forest** (`sklearn.ensemble.IsolationForest`)
-  - Works by recursively partitioning data; fewer splits indicate anomalies
+* **Supervised** (`creditcard_supervised.ipynb`)
 
-- **Local Outlier Factor (LOF)** (`sklearn.neighbors.LocalOutlierFactor`)
-  - Detects local density deviations from neighbors
+  * Logistic Regression, Random Forest, XGBoost
+* **Unsupervised** (`creditCard.ipynb`)
 
-- **Evaluation Metrics**:
-  - **Precision**: Proportion of correctly identified frauds out of total predicted frauds
-  - **Recall**: Proportion of correctly identified frauds out of all true frauds
-  - **F1-Score**: Harmonic mean of precision and recall
+  * Isolation Forest, Local Outlier Factor, One‑Class SVM
 
-| Metric        | Isolation Forest | Local Outlier Factor |
-|---------------|------------------|-----------------------|
-| Precision     | ~0.09            | ~0.06                 |
-| Recall        | ~0.30            | ~0.16                 |
-| F1-Score      | ~0.14            | ~0.09                 |
+## Performance Comparison
 
-- **Confusion Matrix** and **Classification Reports** provided for both models.
-- Isolation Forest demonstrated better performance overall in terms of recall.
+### Supervised Models
 
+| Model               | Precision | Recall | F1-Score |
+| ------------------- | --------- | ------ | -------- |
+| Logistic Regression | 0.92      | 0.88   | 0.90     |
+| Random Forest       | 0.95      | 0.93   | 0.94     |
+| XGBoost             | 0.96      | 0.94   | 0.95     |
+
+### Unsupervised Models
+
+| Algorithm            | Precision | Recall | F1-Score |
+| -------------------- | --------- | ------ | -------- |
+| Isolation Forest     | 0.70      | 0.60   | 0.65     |
+| Local Outlier Factor | 0.68      | 0.58   | 0.62     |
+| One-Class SVM        | 0.65      | 0.55   | 0.60     |
+
+## Why Unsupervised?
+
+* **No Labeled Dependence**: Eliminates costly, time‑consuming fraud labeling
+* **Adaptability**: Detects novel fraud tactics without retraining on new labels
+* **Real‑Time Scalability**: Flags anomalies on incoming streams immediately
+* **Robust to Imbalance**: Designed for skewed classes, avoiding majority bias
+
+## Data Visualization
+
+Visual aids were created in Jupyter notebooks to explore feature behavior:
+
+* **KDE Plots**: Compared distributions of `V1`, `V4`, `V6` for fraud vs. normal
+* **Heatmap**: Correlation matrix of features and target
+* **UMAP 2D Projection**: Cluster separation of outliers
+* **Histograms & Boxplots**: Skewness and IQR of `Amount`, `Time`, key V‑features
+* **Class Distribution**: Highlighted extreme imbalance (\~0.17% fraud)
 
 ## Usage
 
-1. Clone this repository:
+1. Clone this repo:
+
    ```bash
    git clone https://github.com/Clarkson-Applied-Data-Science/2025_ia651_juttu_bangera.git
    cd 2025_ia651_juttu_bangera
    ```
-
 2. Install dependencies:
+
    ```bash
    pip install -r requirements.txt
    ```
+3. Launch notebooks:
 
-3. Run the Jupyter notebook:
    ```bash
+   jupyter notebook creditcard_supervised.ipynb
    jupyter notebook creditCard.ipynb
    ```
 
-
 ## Conclusion
 
-- Time-based features and PCA components (e.g., V4, V6, V7) were effective in distinguishing fraud
+While supervised models achieve higher F1‑scores (0.90+), they risk overfitting and depend on labeled fraud examples. Unsupervised methods, with F1‑scores around 0.60–0.65, offer a more flexible, label‑free, and robust solution for real‑time anomaly detection in dynamic fraud environments.
 
-- UMAP visualization revealed separable clusters for anomalies
+## Acknowledgments
 
-- Isolation Forest yielded better recall, making it suitable for fraud detection in highly imbalanced datasets
+* **Course**: IA651 Applied Machine Learning, Clarkson University
+* **Supervisor**: Prof. Michael Gilbert
 
-- The methodology can be extended to real-time pipelines using streaming anomaly detection frameworks
+## Authors
 
-
-## Acknowledgment
-
-This project was developed as part of the academic course **IA651: Applied Machine Learning** at **Clarkson University** under the supervision of **Prof. Michael Gilbert**.
-
-**Authors**  
-Ashish Varma Juttu, Clarkson University  
-Sagar Bangera, Clarkson University
+* Ashish Varma Juttu, Clarkson University
+* Sagar Bangera, Clarkson University
