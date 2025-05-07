@@ -71,6 +71,20 @@ Fraud detection in credit card transactions is challenged by extreme class imbal
 
 * **Flexible Thresholding**: By adjusting anomaly-score thresholds, teams can dial precision vs. recall to meet evolving risk tolerances.
 
+## Unsupervised Learning Pipeline
+
+To clarify the steps from PCA to final anomaly detection, the unsupervised workflow follows these five key stages:
+
+* **Feature Scaling**: Standardize transaction features so that PCA accurately captures the true variance without bias from scale differences.
+
+* **Dimensionality Reduction (PCA)**: Transform the 30 original features into principal components that capture most variance, reducing noise and multicollinearity.
+
+* **Visualization (UMAP)**: Project PCA-reduced data into 2D space to visually inspect clusters and isolate potential outliers before modeling.
+
+* **Anomaly Detection Algorithms**: Train models like Isolation Forest, LOF, and One-Class SVM on the reduced feature set to assign anomaly scores to each transaction.
+
+* **Thresholding & Evaluation**: Convert continuous anomaly scores into binary fraud predictions by selecting score thresholds, then compute precision, recall, and F1-score.
+
 ## Data Visualization
 
 Visual aids were created in Jupyter notebooks to explore feature behavior:
