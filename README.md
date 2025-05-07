@@ -63,11 +63,29 @@ Fraud detection in credit card transactions is challenged by extreme class imbal
 
 Visual aids were created in Jupyter notebooks to explore feature behavior:
 
-* **KDE Plots**: Compared distributions of `V1`, `V4`, `V6` for fraud vs. normal
 * **Heatmap**: Correlation matrix of features and target
+  ![Untitled-1](https://github.com/user-attachments/assets/787e3675-9643-470a-955a-58290753326f)
+
 * **UMAP 2D Projection**: Cluster separation of outliers
+  ![Untitled](https://github.com/user-attachments/assets/bae72717-210a-4f9b-939b-d63cc1265890)
+
 * **Histograms & Boxplots**: Skewness and IQR of `Amount`, `Time`, key V‑features
+  ![Untitled-1](https://github.com/user-attachments/assets/6995f0aa-bc68-4469-8a44-dbe0d27c0942)
+  ![Untitled](https://github.com/user-attachments/assets/0479f8c8-0407-4c0c-bb48-a123632fc301)
+
 * **Class Distribution**: Highlighted extreme imbalance (\~0.17% fraud)
+  ![Untitled-1](https://github.com/user-attachments/assets/1a393cdd-aafc-4fee-9304-05cb22dda53f)
+
+* **DBSCAN Cliustering**: Highlighted clusters of fraud.
+![Untitled](https://github.com/user-attachments/assets/eb5af6a4-2318-47f9-b513-a0accb031d50)
+
+* **Fraud Heavy Clusters**:
+  ![Untitled-1](https://github.com/user-attachments/assets/079b958c-a8fe-4bec-8765-58581ee0002e)
+
+* **Isolation Forest: Contamination Vs. Precision/Recall/F1-Score**
+  ![Untitled](https://github.com/user-attachments/assets/df071dfa-14a9-41dd-ad49-f11bf25ef806)
+
+
 
 ## Usage
 
