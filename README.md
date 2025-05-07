@@ -65,6 +65,10 @@ Visual aids were created in Jupyter notebooks to explore feature behavior:
 
 * **Heatmap**: Correlation matrix of features and target
   ![Untitled-1](https://github.com/user-attachments/assets/787e3675-9643-470a-955a-58290753326f)
+  
+* **PCA Projection of Transactions**:
+  ![Untitled-1](https://github.com/user-attachments/assets/529fdf94-2241-425d-82c5-80dc8613581b)
+
 
 * **UMAP 2D Projection**: Cluster separation of outliers
   ![Untitled](https://github.com/user-attachments/assets/bae72717-210a-4f9b-939b-d63cc1265890)
